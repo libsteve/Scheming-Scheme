@@ -45,12 +45,9 @@
 ;format and print the symbol table entries, their types, and their levels
 ;the output should illustrate the block levels of the identifier entries
 (define table-print (lambda (table) 
-                      
                        (cond ((null? table) (display "()"))
                              (else
-                              
                               (print-helper (reverse table))
-                              
                              )
                              )  
                       ))
@@ -70,20 +67,19 @@
                        ))
 
 (define print-space (lambda (num)
-                     
                        (cond ((= num 0) ())
                              (else
                               (display " ")
                               (print-space (- num 1))
                               )
                              )
-                       
                       ))
 
-;
-;
-(define enter-block ())
+; enter a new block
+(define enter-block (lambda (table)
+  (define block-depth 0)
+  table)
+  )
 
-;
 ;
 (define exit-block ())
