@@ -29,7 +29,7 @@
                          ))
 
 ;return the type and level of the specified identifier in the symbol table
-;if the identifier is not in the table, returnt the empty list
+;if the identifier is not in the table, return the empty list
 (define get-identifier (lambda (table identifier) 
                          (cond ((null? table) ())
                                ((eq? (caar table) identifier) (cdar table))
@@ -39,3 +39,11 @@
 ;format and print the symbol table entries, their types, and their levels
 ;the output should illustrate the block levels of the identifier entries
 (define table-print (lambda (table) ()))
+
+;
+;
+(define enter-block ())
+
+;
+;
+(define exit-block ())
