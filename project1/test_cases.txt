@@ -1,0 +1,15 @@
+Level 0 Case Test:
+
+(define t (table-create))
+(define t (enter-block t))
+(define t (set-identifier t 'c 'class))
+(table-print t)
+
+Level 1 Case Test:
+
+(define t (table-create))
+(define t (set-identifier t 'c 'class))
+(define t (enter-block t))
+(define t (set-identifier t 'a 'int))
+(define t (exit-block t))
+(table-print t)
