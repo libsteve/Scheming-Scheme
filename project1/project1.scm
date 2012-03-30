@@ -7,39 +7,35 @@
 ;; Peter Mikitsh - pam3961
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;this defines the current block depth
-;the block depth always starts at 0
-(define block-depth 0)
-
 ;create an empty symbol table
-(define (table-create) ())
+(define (table-create) '(0))
 
-;we need da y-combinator
-;for a three parameter function
+;helper function for set-identifier
+;for use only by set-identifier
 (define set-helper (lambda (table id type)
-                                    (cond ((null? table) (list (list id type block-depth)))
-                                          ((not (eq? (caddr (car table)) block-depth)) (list (list id type block-depth)))
-                                          ((not (eq? (caar table) id)) (append (set-helper (cdr table) id type) table))
-                                          ((eq? (caar table) id) (display "identifier already exists") table)
+                                    (cond ((empty? (cdr table)) (list (list id type (car table))))
+                                          ((not (eq? (caddr (cadr table)) (car table))) (list (list id type (car table))))
+                                          ((eq? (caadr table) id) (display "identifier already exists") table)
+                                          (else (append (set-helper (cons (car table) (cddr table)) id type) (cdr table)))
                                           )))
 
 ;check to see if the identifier is already in the table
 ;if yes, print an error message
 ;else, save the identifier and its type level
 ;return the table
-(define set-identifier (lambda (table identifier type) 
-                         (cond ((null? table) (list (list identifier type block-depth)))
-                               ((not (eq? (caddr (car table)) block-depth)) (cons (list identifier type block-depth) table))
-                               (else (set-helper table identifier type))
+(define set-identifier (lambda (table id type) 
+                         (cond ((empty? (cdr table)) (list (car table) (list id type (car table))))
+                               ((not (eq? (caddr (cadr table)) (car table))) (cons (car table) (cons (list id type (car table)) (cdr table))))
+                               (else (cons (car table) (set-helper table id type)))
                                )))
                          
 
 ;return the type and level of the specified identifier in the symbol table
 ;if the identifier is not in the table, return the empty list
 (define get-identifier (lambda (table identifier) 
-                         (cond ((null? table) ())
-                               ((eq? (caar table) identifier) (cdar table))
-                               (else (get-identifier (cdr table) identifier))
+                         (cond ((null? (cdr table)) ())
+                               ((eq? (caadr table) identifier) (cdadr table))
+                               (else (get-identifier (cons (car table) (cddr table)) identifier))
                                )))
 
 ;format and print the symbol table entries, their types, and their levels
@@ -77,9 +73,8 @@
 
 ; enter a new block
 (define enter-block (lambda (table)
-  (define block-depth 0)
-  table)
-  )
+                      (cons (+ 1 (car table)) (cdr table))
+                      ))
 
 ;
 (define exit-block ())
