@@ -17,7 +17,7 @@
     (cond 
       ((empty? (cdr table)) (list (list id type (car table))))
       ((not (eq? (caddr (cadr table)) (car table))) (list (list id type (car table))))
-      ((eq? (caadr table) id) (display "identifier already exists") table)
+      ((eq? (caadr table) id) (display "identifier already exists") (cdr table))
       (else (append (set-helper (cons (car table) (cddr table)) id type) (cdr table)))
     )
   )
