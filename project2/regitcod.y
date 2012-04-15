@@ -33,6 +33,16 @@ char program_name[100];
 char symbol_table[51][41];
 int number_of_identifiers;
 int number_of_output_characters;
+void handle_output_size(int numChars)
+{
+	number_of_output_characters += numChars;
+	if (number_of_output_characters > 10000)
+	{
+		printf("Error: Too many characters in output\n");
+		exit(-1);
+	}
+
+}
 %}
 
 %union {
@@ -73,12 +83,14 @@ statementList : statement '\n'
               ;
 
 programOpeningStatement : PROGRAM IDENTIFIER END_STATEMENT '\n' START END_STATEMENT '\n'
-								{ printf("PGRM %s\n", $2);
-								  printf("FLSH\n");
-								  strcpy(program_name, $2); }
+			{ number_of_output_characters += 8 + strlen($2);
+			  printf("PGRM %s\n", $2);
+			  printf("FLSH\n");
+			  strcpy(program_name, $2); }
 			;
 
-programClosingStatement : END END_STATEMENT '\n' { printf("FLSH\n");
+programClosingStatement : END END_STATEMENT '\n' { handle_output_size(8 + strlen(program_name));
+						   printf("FLSH\n");
 						   printf("ENDP %s\n", program_name); }
 			;
 
@@ -86,21 +98,30 @@ statement : assignmentTarget EQUALS expr END_STATEMENT	{ printf("STOR\n"); }
 	  | expr END_STATEMENT			{  }
           ;
 
-expr: expr PLUS term		{ printf("PLUS\n"); }
-    | expr MINUS term		{ printf("MINU\n"); }
+expr: expr PLUS term		{ handle_output_size(4);				  
+				  printf("PLUS\n"); }
+    | expr MINUS term		{handle_output_size(4);	
+				 printf("MINU\n"); }
     | term			{  }
     ;
 
-term : term TIMES varOrNum	{ printf("TIMS\n"); }
-     | term DIVIDE varOrNum	{ printf("DIVD\n"); }
-     | ABS LPAREN expr RPAREN	{ printf("ABS\n"); }
-     | SQRT LPAREN expr RPAREN	{ printf("SQRT\n"); }
-     | SHOW LPAREN expr RPAREN	{ printf("PRNT\n"); }
+term : term TIMES varOrNum	{ handle_output_size(4);	
+     				  printf("TIMS\n"); }
+     | term DIVIDE varOrNum	{ handle_output_size(4);	
+				  printf("DIVD\n"); }
+     | ABS LPAREN expr RPAREN	{ handle_output_size(4);	
+				  printf("ABS\n"); }
+     | SQRT LPAREN expr RPAREN	{ handle_output_size(4);	
+				  printf("SQRT\n"); }
+     | SHOW LPAREN expr RPAREN	{ handle_output_size(4);	
+				  printf("PRNT\n"); }
      | varOrNum                 {  }
      ;
 
-varOrNum : NUMBER		{ printf("SIMM %f\n", $1); }
-	 | IDENTIFIER		{ printf("SVAL %s\n", $1); }
+varOrNum : NUMBER		{ handle_output_size(4);	
+	 			  printf("SIMM %f\n", $1); }
+	 | IDENTIFIER		{ handle_output_size(4);	
+				  printf("SVAL %s\n", $1); }
          ;
 
 assignmentTarget : IDENTIFIER	{ //search the symbol table for the identifier
