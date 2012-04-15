@@ -35,7 +35,7 @@ char program_name[100];
 %union {
 	double dvalue;
 	int varindex;
-	char identifier[40];
+	char identifier[41];
 }
 
 %token <dvalue> NUMBER
@@ -100,7 +100,7 @@ varOrNum : NUMBER		{ printf("SIMM %f\n", $1); }
 	 | IDENTIFIER		{ printf("SVAL %s\n", $1); }
          ;
 
-assignmentTarget : IDENTIFIER	{ printf("SADR %s\n", $1); }
+assignmentTarget : IDENTIFIER	{  printf("SADR %s\n", $1); }
 		 ;
 
 %%

@@ -39,8 +39,16 @@
 "/"			{ return DIVIDE; }
 "("			{ return LPAREN; }
 ")"			{ return RPAREN; }
-[a-zA-Z]+               { strcpy(yylval.identifier, yytext);
-			  return IDENTIFIER;
+[a-zA-Z]+               { if (strlen(yytext) <= 40)
+			  {
+				strcpy(yylval.identifier, yytext);
+			  }
+			  else
+			  {				
+				printf("Error: Identifier over 40 characters: %s\n", yytext);
+				exit(-1);
+			  }
+				return IDENTIFIER;
                         }
 [ \t]                   ;
 \n|.                    { return yytext[0]; 
