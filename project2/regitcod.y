@@ -30,6 +30,9 @@ void yyerror(const char *msg)
 // Storage for variables: yes Virginia, only 26 variables possible in this language!
 double variables[50];
 char program_name[100];
+char symbol_table[51][41];
+int number_of_identifiers;
+int number_of_output_characters;
 %}
 
 %union {
@@ -100,12 +103,33 @@ varOrNum : NUMBER		{ printf("SIMM %f\n", $1); }
 	 | IDENTIFIER		{ printf("SVAL %s\n", $1); }
          ;
 
-assignmentTarget : IDENTIFIER	{  printf("SADR %s\n", $1); }
+assignmentTarget : IDENTIFIER	{ //search the symbol table for the identifier
+				  int i;
+				  for ( i = 0; i < number_of_identifiers; i++)
+				  {
+					if (strcmp(symbol_table[i], $1) == 0)
+					{
+						break;
+					}
+				  }
+				  if (i == number_of_identifiers)
+				  {
+					if (i == 51)
+					{
+						printf("Error: Too many identifiers\n");
+						exit(-1);
+					}
+					//new variable
+					strcpy(symbol_table[i], $1);
+					number_of_identifiers++;
+				  }
+				  printf("SADR %s\n", $1); }
 		 ;
 
 %%
 
 main() {
+	number_of_output_characters = number_of_identifiers = 0;
         yyparse();
 }
 

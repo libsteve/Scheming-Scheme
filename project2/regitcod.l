@@ -39,7 +39,7 @@
 "/"			{ return DIVIDE; }
 "("			{ return LPAREN; }
 ")"			{ return RPAREN; }
-[a-zA-Z]+               { if (strlen(yytext) <= 40)
+[a-zA-Z]+[a-zA-Z0-9]*               { if (strlen(yytext) <= 40)
 			  {
 				strcpy(yylval.identifier, yytext);
 			  }
