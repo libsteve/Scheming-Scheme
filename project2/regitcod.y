@@ -1,7 +1,9 @@
 /********************************************************************************************
  * File:	$Id: regitcod.y,v 1.2 2012/04/08 21:47:35 ejp6914 Exp ejp6914 $
  * Author:	Rajendra K. Raj, rkr
- * Author:	STUDENT NAME, STUDENT UNIX ID.
+ * Author:	Steven Brunwasser, sjb9815
+ *		Ethan Peters, ejp6914
+ *		Peter Mikitsh, pam3961
  * Description:	A simple yacc/bison file for a rudimentary calculator
  * Revision History:
  *      $Log: regitcod.y,v $

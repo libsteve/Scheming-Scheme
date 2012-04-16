@@ -1,7 +1,9 @@
  /********************************************************************************************
  * File:	$Id: regitcod.l,v 1.2 2012/04/08 21:47:29 ejp6914 Exp ejp6914 $
  * Author:	Rajendra K. Raj, rkr
- * Author:	STUDENT NAME, STUDENT UNIX ID.
+ * Author:	Steven Brunwasser, sjb9815
+ *		Ethan Peters, ejp6914
+ *		Peter Mikitsh, pam3961
  * Description:	A simple flex/lex file for a rudimentary calculator
  * Revision History:
  *      $Log: regitcod.l,v $
