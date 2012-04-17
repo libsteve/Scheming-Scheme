@@ -23,18 +23,27 @@
 #include <stdlib.h>  // often required 
 #include <string.h>
 
-// A simple error message to move things along
-void yyerror(const char *msg)
-{
-      printf("ERROR(PARSER): %s\n", msg);
-}
-
-// Storage for variables: yes Virginia, only 26 variables possible in this language!
 double variables[50];
 char program_name[100];
 char symbol_table[51][41];
 int number_of_identifiers;
 int number_of_output_characters;
+
+/**
+ * Prints an error message on standard out.
+ *
+ * @param	msg	pointer to error message printed
+ */
+void yyerror(const char *msg)
+{
+      printf("ERROR(PARSER): %s\n", msg);
+}
+
+/**
+ * Prints an error message if output size exceeded.
+ *
+ * @param	numChars	number of output characters
+ */
 void handle_output_size(int numChars)
 {
 	number_of_output_characters += numChars;
@@ -151,8 +160,10 @@ assignmentTarget : IDENTIFIER	{ //search the symbol table for the identifier
 
 %%
 
+/**
+ * Initializes the program.
+ */
 main() {
 	number_of_output_characters = number_of_identifiers = 0;
         yyparse();
 }
-

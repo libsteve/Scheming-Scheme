@@ -57,6 +57,9 @@
                         }
 %%
 
+/**
+ * Returns the integer value 1.
+ */
 int yywrap() {
    return 1;
 }
