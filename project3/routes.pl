@@ -17,6 +17,6 @@ route(X, Y, R, D) :-
 	D is D1 + D2 + L1, R is [X | R1].
 
 /* make sure that the given element is not in the given list */
-notin(Elm, []) :- true.
+notin(_, []) :- true.
 notin(Elm, [Elm | _]) :- false.
 notin(Elm, [_ | T]) :- find(Elm, T).
