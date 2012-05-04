@@ -51,8 +51,8 @@ farthing(0.25, 1, 0).
 /* Find the minimal amount of coins that a number of pence can be represented as */
 coins(Pennies, Amount) :- 
 	Pence is truncate(Pennies), PartPence is Pennies - Pence,
-	pound(Pence, A1, R1), tenner(R1, A2, R2), halfCrown(R2, A3, R3), florin(R3, A4, R4),
-	shilling(R4, A5, R5), sixpence(R5, A6, R6), joey(R6, A7, R7), tickie(R7, A8, R8),
+	tenner(Pence, A2, R2), halfCrown(R2, A3, R3), florin(R3, A4, R4),
+	sixpence(R4, A6, R6), joey(R6, A7, R7), tickie(R7, A8, R8),
 	tuppence(R8, A9, R9), copper(R9, A10, 0),
 	haPenny(PartPence, A11, R11), farthing(R11, A12, 0),
-	Amount is A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8 + A9 + A10 + A11 + A12.
+	Amount is A2 + A3 + A4 + A6 + A7 + A8 + A9 + A10 + A11 + A12.
