@@ -1,7 +1,8 @@
 /***********************************************************
  * File:         flights.pl
  * Author        Steven Brunwasser, sjb9815
- * Author		 
+ * Author	 Ethan Peters, ejp6914
+ * Author	 Peter Mikitsh, pam3961	 
  * Description:  the flight and airport facts you set up 
  *				 for Task B.
  *
