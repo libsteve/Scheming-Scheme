@@ -1,0 +1,41 @@
+/**
+ *
+ * This program does not run properly.
+ * We need to get this working properly in order
+ * to make sure that we understand the language.
+ *
+ */
+
+tate Person {
+  method born()[Person>>SleepingPerson] {
+    this <- SleepingPerson;
+  }
+}
+
+state AwakePerson = Person with {
+  var standing = false;
+  method stand() {
+    this.standing = !this.standing;
+    match this.standing {
+      case true {
+        java.lang.System.out.println("I am standing");
+      }
+      case false {
+        java.lang.System.out.println("I am not standing");
+      }
+    }
+  }
+  method sleep()[AwakePerson>>SleepingPerson] {
+    java.lang.System.out.println("Good Night");
+    this <- SleepingPerson;
+  }
+}
+
+state SleepingPerson {
+  method wake()[SleepingPerson>>AwakePerson] {
+    this <- AwakePerson;
+    java.lang.System.out.println("Good Morning");
+  }
+}
+
+
