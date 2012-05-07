@@ -6,17 +6,25 @@
  *
  */
 
-tate Person {
+state Person {
   method born()[Person>>SleepingPerson] {
+    java.lang.System.out.println("WAHHHHH! WAHHHHH!");
     this <- SleepingPerson;
   }
 }
 
 state AwakePerson = Person with {
-  var standing = false;
+  val standing;
   method stand() {
-    this.standing = !this.standing;
-    match this.standing {
+    match (this.standing) {
+      case true {
+        this.standing = false;
+      }
+      case false {
+        this.standing = true;
+      }
+    };
+    match (this.standing) {
       case true {
         java.lang.System.out.println("I am standing");
       }
@@ -38,4 +46,11 @@ state SleepingPerson {
   }
 }
 
-
+method main() {
+  var p = new Person;
+  p.born();
+  p.wake();
+  p.stand();
+  p.stand();
+  p.sleep();
+}
